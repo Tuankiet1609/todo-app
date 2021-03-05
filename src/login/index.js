@@ -1,9 +1,26 @@
-/** @format */
-
-import React from 'react';
-import { View, Text, StyleSheet, TextInput,Image, TouchableOpacity } from 'react-native';
-
+import React, {useState}from 'react';
+import { View, Text, StyleSheet, TextInput,Image , TouchableOpacity, FlatList, 
+	TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
+import Users from '../services/user'
 function Login({navigation}) {
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+		const handlelogin =()  =>{
+			if(username.trim() === '') {
+				return Alert.alert('Trường tài khoản không được để trống');
+			}
+	
+			if(password.trim() === '') {
+				return Alert.alert('Trường mật khẩu không được để trống');
+			}
+	
+			if(username !== Users.username || password !== Users.password) {
+				return Alert.alert('Tài khoản hoặc mật khẩu không đúng');
+			}
+	
+			navigation.navigate('Products');
+		}
+
 	return (
 		<View style={styles.waper}>
 			<Image
@@ -13,15 +30,17 @@ function Login({navigation}) {
 			<TextInput
 				style={[styles.input, styles.user]}
 				placeholder='Tên đăng nhập'
+				onChangeText={(text) => setUsername(text)}
 			></TextInput>
 			<TextInput 
                 style={styles.input} placeholder='Mật khẩu'
                 secureTextEntry
+				onChangeText={(text) => setPassword(text)}
             ></TextInput>
 
             <TouchableOpacity 
                 style={styles.Login}
-				onPress={() => navigation.navigate('Products')}
+				onPress={handlelogin}
             >
                 <Text style={styles.textLogin}>Đăng nhập</Text>
             </TouchableOpacity>
@@ -68,3 +87,4 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
+
