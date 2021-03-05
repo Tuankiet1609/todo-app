@@ -10,7 +10,7 @@ function ItemList({ data }) {
         <View style={styles.container}>
           
             
-            <Text style={styles.tille}>Tên việc <Text style={styles.id}>
+            <Text style={styles.tille}>Cần làm <Text style={styles.id}>
               {data.id}: 
             </Text> {data.name}</Text>
            <View style={styles.header}>
