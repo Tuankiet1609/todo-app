@@ -1,15 +1,18 @@
 import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import Header from '../components/Header/index';
+import { useNavigation } from "@react-navigation/native";
 import {AntDesign} from '@expo/vector-icons';
 import data from '../services/Products'
 
-function ItemList({ data }) {
-    return (
-      <TouchableOpacity>
+function ItemList({ data })  {
+	const navigation = useNavigation();
+	return (
+		<TouchableOpacity
+			onPress={() =>
+				navigation.navigate("todomodal", { idJob: data.id })
+			}>
         <View style={styles.container}>
-          
-            
             <Text style={styles.tille}>Cần làm <Text style={styles.id}>
               {data.id}: 
             </Text> {data.name}</Text>
@@ -26,6 +29,7 @@ function ItemList({ data }) {
   }
 
 function Products() {
+    const navigation = useNavigation();
     return (
         <View style={styles.waper}>
             <Header
@@ -41,7 +45,9 @@ function Products() {
             </View></Text>}
 			></Header>
             <View style={{marginVertical: 48}}>
-                <TouchableOpacity >
+                <TouchableOpacity 
+                
+                onPress={() => navigation.navigate('addl')}>
                     <View style={styles.add}>
                         <AntDesign name="plus" size = {16} />
                     </View>
