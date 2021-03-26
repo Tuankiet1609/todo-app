@@ -1,14 +1,24 @@
-import React, { PureComponent } from 'react';
+import React, {
+	useContext,
+	useState,
+	useEffect,
+} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import Products from '../services/Products';
 import Header from '../components/Header';
+import Context from '../todo/Context';
 
 
-function  todomodal({ navigation, route }) {
+function  todomodal({ route }) {
 	const { idJob } = route.params;
-	const job = Products.filter((item) => item.id === idJob)[0];
-	console.log(job);
-	
+	const [job, setJob] = useState({});
+	const [context, setContext] = useContext(Context);
+	useEffect(() => {
+		const job = context.find(
+			(item) => item.id === idJob.id
+		);
+		setJob(job);
+	}, []);
 	return (
 		<View style={styles.container}>
 			<Header
@@ -29,7 +39,9 @@ function  todomodal({ navigation, route }) {
 
 					<View style={styles.element}>
 						<Text style={styles.title}>Ghi chú</Text>
-						<Text style={styles.content}>{job.Detail}</Text>
+						<Text style={styles.content} >{job &&
+						job.Detail}
+						</Text>
 					</View>
 					
 					
